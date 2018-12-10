@@ -1,18 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 [CreateAssetMenu(fileName = "sFloat", menuName = "sVariables/sFloat", order = 1)]
-public class sFloat : ScriptableObject, IResetScriptableObject, ISerializationCallbackReceiver
+public class sFloat : ScriptableVariable, IResetScriptableObject, ISerializationCallbackReceiver
 {
     //Float value
-    public float value;
+    [ShowOnly]public float currentValue;
 
     //Can the value be reset in game
     public bool resettable;
 
     //When the game starts, the starting value we use (so we can reset if need be)
-    private float startingValue;
+    public float startingValue = 10;
 
     /// <summary>
     /// Set sFloat value
@@ -20,7 +21,7 @@ public class sFloat : ScriptableObject, IResetScriptableObject, ISerializationCa
     /// <param name="_value"></param>
     public void SetValue(float _value)
     {
-        value = _value;
+        currentValue = _value;
     }
 
     /// <summary>
@@ -29,7 +30,7 @@ public class sFloat : ScriptableObject, IResetScriptableObject, ISerializationCa
     /// <param name="_value"></param>
     public void SetValue(sFloat _value)
     {
-        value = _value.value;
+        currentValue = _value.currentValue;
     }
 
     /// <summary>
@@ -38,7 +39,7 @@ public class sFloat : ScriptableObject, IResetScriptableObject, ISerializationCa
     /// <param name="_value"></param>
     public void AddValue(float _value)
     {
-        value += _value;
+        currentValue += _value;
     }
 
     /// <summary>
@@ -47,7 +48,7 @@ public class sFloat : ScriptableObject, IResetScriptableObject, ISerializationCa
     /// <param name="_value"></param>
     public void AddValue(sFloat _value)
     {
-        value += _value.value;
+        currentValue += _value.currentValue;
     }
     
     /// <summary>
@@ -55,7 +56,7 @@ public class sFloat : ScriptableObject, IResetScriptableObject, ISerializationCa
     /// </summary>
     public void OnAfterDeserialize()
     {
-        startingValue = value;
+        currentValue = startingValue;
     }
 
     public void OnBeforeSerialize() { }
@@ -63,11 +64,11 @@ public class sFloat : ScriptableObject, IResetScriptableObject, ISerializationCa
     /// <summary>
     /// Reset the value to it's inital value if it's resettable
     /// </summary>
-    public void ResetValue()
+    public override void ResetValue()
     {
         if (resettable)
         {
-            value = startingValue;
+            currentValue = startingValue;
         }
     }
 }

@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "sFloat", menuName = "sVariables/sGameObject", order = 1)]
-public class sGameObject : ScriptableObject, IResetScriptableObject, ISerializationCallbackReceiver
+public class sGameObject : ScriptableVariable, IResetScriptableObject, ISerializationCallbackReceiver
 {
+    public float initalValue;
+
+    public float runtimeValue;
+
     //Float value
     public GameObject value;
 
@@ -45,7 +49,7 @@ public class sGameObject : ScriptableObject, IResetScriptableObject, ISerializat
     /// <summary>
     /// Reset the value to it's inital value if it's resettable
     /// </summary>
-    public void ResetValue()
+    public override void ResetValue()
     {
         if (resettable)
         {

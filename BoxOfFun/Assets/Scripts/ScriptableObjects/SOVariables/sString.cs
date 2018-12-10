@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "sFloat", menuName = "sVariables/sString", order = 1)]
-public class sString : ScriptableObject, IResetScriptableObject, ISerializationCallbackReceiver
+public class sString : ScriptableVariable, IResetScriptableObject, ISerializationCallbackReceiver
 {
     //Float value
     public string value;
@@ -45,7 +45,7 @@ public class sString : ScriptableObject, IResetScriptableObject, ISerializationC
     /// <summary>
     /// Reset the value to it's inital value if it's resettable
     /// </summary>
-    public void ResetValue()
+    public override void ResetValue()
     {
         if (resettable)
         {

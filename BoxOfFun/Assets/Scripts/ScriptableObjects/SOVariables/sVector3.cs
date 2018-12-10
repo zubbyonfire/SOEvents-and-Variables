@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "sFloat", menuName = "sVariables/sVector3", order = 1)]
-public class sVector3 : ScriptableObject, IResetScriptableObject, ISerializationCallbackReceiver
+public class sVector3 : ScriptableVariable, IResetScriptableObject, ISerializationCallbackReceiver
 {
     //Float value
     public Vector3 value;
@@ -63,7 +63,7 @@ public class sVector3 : ScriptableObject, IResetScriptableObject, ISerialization
     /// <summary>
     /// Reset the value to it's inital value if it's resettable
     /// </summary>
-    public void ResetValue()
+    public override void ResetValue()
     {
         if (resettable)
         {
