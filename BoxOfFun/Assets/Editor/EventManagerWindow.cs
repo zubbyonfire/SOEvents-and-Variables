@@ -10,10 +10,12 @@ using UnityEngine.SceneManagement;
 public class EventManagerWindow : EditorWindow
 {
     //Dictionary of all objects that are using the GameEventListener
-    private Dictionary<sGameEvent, GameObject> gameEventDictionary = new Dictionary<sGameEvent, GameObject>();
+    private Dictionary<sGameEvent, List<GameObject>> gameEventDictionary = new Dictionary<sGameEvent, List<GameObject>>();
     public GameEventListener[] eventObjects;
 
     private string sceneName;
+
+    private bool eventsActive = false;
     
     [MenuItem("Window/EventManager")]
     public static void ShowWindow()
@@ -26,26 +28,52 @@ public class EventManagerWindow : EditorWindow
     {
         StartWindow();
 
-        Debug.Log(sceneName);
+        //Debug.Log(sceneName);
 
         GUILayout.Label("Event Manager", EditorStyles.boldLabel);
 
         if(GUILayout.Button("GetSceneObjects"))
         {
             GetAllEventsInScene();
+
+            eventsActive = true; //Switch on the Events active
         }
 
+        if (eventsActive)
+        {
+            //Print out a list of all the Events and each GameObject thats part of the event
+            foreach (sGameEvent key in gameEventDictionary.Keys)
+            {
+                EditorGUILayout.BeginHorizontal(EditorStyles.helpBox); //All the Event names
+                GUILayout.Label(key.name);
 
-    }
+                EditorGUILayout.BeginVertical(GUILayout.ExpandWidth(true)); //All objects that use the Event
+                foreach (GameObject value in gameEventDictionary[key])
+                {
+                    GUILayout.Label(value.name);
+                }
+                EditorGUILayout.EndVertical();
 
-    private void OnHierarchyChange()
+                EditorGUILayout.BeginVertical(); //Button to trigger all the events 
+
+                EditorGUILayout.EndVertical();
+
+                EditorGUILayout.EndHorizontal(); //End of the Event names
+            }
+        }
+    }    private void OnHierarchyChange()
     {
-        if (sceneName != SceneManager.GetActiveScene().name)
+        /*if (sceneName != SceneManager.GetActiveScene().name)
         {
             GetAllEventsInScene();
         }
 
-        GetAllEventsInScene();
+        GetAllEventsInScene();*/
+    }
+
+    void Update()
+    {
+        //GetAllEventsInScene();
     }
 
     private void GetAllEventsInScene()
@@ -58,9 +86,23 @@ public class EventManagerWindow : EditorWindow
 
         foreach(GameEventListener listener in eventObjects)
         {
-            gameEventDictionary.Add(listener.Event, listener.gameObject);
+            //Check to see if the key does not already exist in the dictionary
+            if (!gameEventDictionary.ContainsKey(listener.Event))
+            {
+                List<GameObject> eventObjectList = new List<GameObject>();
+                eventObjectList.Add(listener.gameObject);
 
-            Debug.Log(listener.Event + "" +  listener.gameObject);
+                gameEventDictionary.Add(listener.Event, eventObjectList); //Add the event and the gameObject list
+            }
+            else
+            {
+                List<GameObject> copyList = gameEventDictionary[listener.Event]; //Get a copy of the list associated with listener event
+                copyList.Add(listener.gameObject);
+
+                gameEventDictionary[listener.Event] = copyList;
+            }
+
+            //Debug.Log(listener.Event + "" +  listener.gameObject);
         }
     }
 
