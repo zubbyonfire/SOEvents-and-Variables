@@ -22,6 +22,8 @@ public class EventManagerWindow : EditorWindow
     {
         //Show existing window instance. If one does not exist, make one
         EditorWindow.GetWindow(typeof(EventManagerWindow));
+
+        
     }
 
     private void OnGUI()
@@ -55,13 +57,21 @@ public class EventManagerWindow : EditorWindow
                 EditorGUILayout.EndVertical();
 
                 EditorGUILayout.BeginVertical(); //Button to trigger all the events 
-
+                if (EditorApplication.isPlaying) //If the application is playing - draw the raise buttons
+                {
+                    if (GUILayout.Button("Raise Event"))
+                    {
+                        key.Raise(); //Raise the events
+                    }
+                }
                 EditorGUILayout.EndVertical();
 
                 EditorGUILayout.EndHorizontal(); //End of the Event names
             }
         }
-    }    private void OnHierarchyChange()
+    }
+
+    private void OnHierarchyChange()
     {
         /*if (sceneName != SceneManager.GetActiveScene().name)
         {
@@ -118,3 +128,41 @@ public class EventManagerWindow : EditorWindow
         sceneName = SceneManager.GetActiveScene().name;
     }
 }
+
+/* ##Solution for the scene change issue
+[InitializeOnLoad]
+public static class EditorApplicationExtended
+{
+    public static Action ChangeScene;
+
+    private static string currentScene;
+    private static int frameCount;
+    private static float realtimeSinceStartup;
+    private static int renderedFrameCount;
+
+    static EditorApplicationExtended()
+    {
+        // Even if update is not the most elegant. Using hierarchyWindowChanged for CPU sake will not work in all cases, because when hierarchyWindowChanged is called, Time's values might be all higher than current values. Why? Because current values are set at the first frame. If you keep reloading the same scene, this case happens.
+        EditorApplication.update += EditorApplicationExtended.DetectChangeScene;
+    }
+
+    private static void DetectChangeScene()
+    {
+        if (EditorApplicationExtended.currentScene != EditorApplication.currentScene ||
+          // Detect change with the same scene, the real time should fill 99% of cases. Not tested but if you are able to load 2 scenes in a single frame, the time might not work.
+          EditorApplicationExtended.realtimeSinceStartup > Time.realtimeSinceStartup ||
+          EditorApplicationExtended.frameCount > Time.frameCount ||
+          EditorApplicationExtended.renderedFrameCount > Time.renderedFrameCount)
+        {
+            EditorApplicationExtended.currentScene = EditorApplication.currentScene;
+
+            if (EditorApplicationExtended.ChangeScene != null)
+                EditorApplicationExtended.ChangeScene();
+        }
+
+        EditorApplicationExtended.frameCount = Time.frameCount;
+        EditorApplicationExtended.realtimeSinceStartup = Time.realtimeSinceStartup;
+        EditorApplicationExtended.renderedFrameCount = Time.renderedFrameCount;
+    }
+}
+*/
