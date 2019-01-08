@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d359e321ff88841a8f2594ceb16913, type: 3}
   m_Name: DamagePlayer
   m_EditorClassIdentifier: 
+  eventDescription: Triggered when the player takes damage

@@ -7,6 +7,9 @@ public class sGameEvent : ScriptableObject
 {
     private List<GameEventListener> listeners = new List<GameEventListener>();
 
+    [TextArea]
+    public string eventDescription;
+
     public void Raise()
     {
         for (int i = listeners.Count -1; i >= 0; i--)
