@@ -8,7 +8,8 @@ public class sGameEvent : ScriptableObject
     private List<GameEventListener> listeners = new List<GameEventListener>();
 
     [TextArea]
-    public string eventDescription;
+    [Tooltip("When is this event raised")]
+    public string eventDescription = "[When does this event trigger]";
 
     public void Raise()
     {

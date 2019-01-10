@@ -8,6 +8,10 @@ public class GameEventListener : MonoBehaviour
     public sGameEvent Event;
     public UnityEvent Response;
 
+    [TextArea]
+    [Tooltip("What does this object do when the attached event is raised")]
+    public string responseDescription = "[What does this object do in response to this event]";
+
     private void OnEnable()
     {
         Event.RegisterListener(this);

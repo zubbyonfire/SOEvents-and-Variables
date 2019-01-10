@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 425567269}
   - component: {fileID: 425567274}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: PlayerCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -296,23 +296,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f7b572bbfd52644a8c2fa99936e6b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 0881fe72db0f0124dadb997192c84504, type: 2}
+  Event: {fileID: 11400000, guid: 646341f11b80ad6478ec1b275346f74d, type: 2}
   Response:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 425567274}
-        m_MethodName: Damage
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  responseDescription: Heal the player
 --- !u!135 &425567270
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -430,12 +420,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f7b572bbfd52644a8c2fa99936e6b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 646341f11b80ad6478ec1b275346f74d, type: 2}
+  Event: {fileID: 0}
   Response:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  responseDescription: '[What does this object do in response to this event]'
 --- !u!65 &546648216
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -546,6 +537,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  responseDescription: 
 --- !u!135 &729576380
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -656,6 +648,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  responseDescription: 
 --- !u!136 &1561582700
 CapsuleCollider:
   m_ObjectHideFlags: 0

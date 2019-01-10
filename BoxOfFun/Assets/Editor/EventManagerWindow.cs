@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
-using UnityEngine.Events;
-using System;
 using UnityEditor.SceneManagement;
 
 //Display all GameEvents in the current scene - show which objects are using them
@@ -15,8 +13,6 @@ public class EventManagerWindow : EditorWindow
     //Dictionary of all objects that are using the GameEventListener
     private Dictionary<sGameEvent, List<GameObject>> gameEventDictionary = new Dictionary<sGameEvent, List<GameObject>>();
     public GameEventListener[] eventObjects;
-
-    private string sceneName;
 
     [MenuItem("Window/EventManager")]
     public static void ShowWindow()
@@ -33,7 +29,6 @@ public class EventManagerWindow : EditorWindow
 
         EditorApplication.hierarchyChanged += HierarchyChanged;
 
-
         GetAllScriptableEventsInScene();
     }
 
@@ -47,28 +42,49 @@ public class EventManagerWindow : EditorWindow
 
     private void OnGUI()
     {
-        StartWindow();
+        Rect r = position; //position of the window - can get the height and width from here
+        float windowWidth = position.width / 4; //Width of each section
+
+        GUIStyle centerLabelStyle = new GUIStyle();
+        centerLabelStyle.alignment = TextAnchor.MiddleCenter;
+        centerLabelStyle.fontStyle = FontStyle.Bold;
 
         GUILayout.Label("Event Manager", EditorStyles.boldLabel);
+
+        EditorGUILayout.BeginHorizontal(EditorStyles.helpBox); //All the Event names
+        GUILayout.Label("Event Name", centerLabelStyle, GUILayout.Width(windowWidth));
+        GUILayout.Label("Description", centerLabelStyle, GUILayout.Width(windowWidth));
+        GUILayout.Label("GameObject", centerLabelStyle, GUILayout.Width(windowWidth));
+        GUILayout.Label("Raise Event", centerLabelStyle, GUILayout.Width(windowWidth));
+        EditorGUILayout.EndHorizontal();
 
         //Print out a list of all the Events and each GameObject thats part of the event
         foreach (sGameEvent key in gameEventDictionary.Keys)
         {
+            //***********************Event Name***********************
             EditorGUILayout.BeginHorizontal(EditorStyles.helpBox); //All the Event names
-            GUILayout.Label(key.name); 
+            GUILayout.Label(key.name, GUILayout.Width(windowWidth));
 
-            EditorGUILayout.BeginVertical();
-            GUILayout.Label(key.eventDescription); //Display the event description
+            //***********************Event Description***********************
+            EditorGUILayout.BeginVertical(GUILayout.MinWidth(windowWidth));
+            GUI.skin.label.wordWrap = true; //Wrap the label text
+            GUILayout.Label(key.eventDescription, GUILayout.Width(windowWidth));
             EditorGUILayout.EndVertical();
+            //***************************************************************
 
+            //***********************Event GameObjects***********************
             EditorGUILayout.BeginVertical(GUILayout.ExpandWidth(true)); //All objects that use the Event
             foreach (GameObject value in gameEventDictionary[key])
             {
-                GUILayout.Label(value.name); //Gameobject names
+                GUILayout.Label(value.name, GUILayout.Width(windowWidth)); //Gameobject names
+                EditorGUILayout.ObjectField(value, typeof(object), true, GUILayout.Width(windowWidth));
             }
             EditorGUILayout.EndVertical();
+            //***************************************************************
 
+            //***********************Event Raise***********************
             EditorGUILayout.BeginVertical(); //Button to trigger all the events 
+
             if (EditorApplication.isPlaying) //If the application is playing - draw the raise buttons
             {
                 if (GUILayout.Button("Raise Event"))
@@ -77,6 +93,7 @@ public class EventManagerWindow : EditorWindow
                 }
             }
             EditorGUILayout.EndVertical();
+            //********************************************************
 
             EditorGUILayout.EndHorizontal(); //End of the Event names
         }
@@ -137,11 +154,5 @@ public class EventManagerWindow : EditorWindow
     {
         //Empty the Dictionary
         gameEventDictionary.Clear();
-    }
-
-    private void StartWindow()
-    {
-        //Store the sceneName
-        sceneName = SceneManager.GetActiveScene().name;
     }
 }
