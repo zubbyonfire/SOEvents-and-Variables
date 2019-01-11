@@ -13,6 +13,8 @@ public class ScriptableObjectManagerWindow : EditorWindow
 {
     //Dictionary of all objects using a ScriptableObject variable
 
+    int tabSelected = 0;
+
     [MenuItem("Window/ScriptableObjectManager")]
     public static void ShowWindow()
     {
@@ -33,5 +35,19 @@ public class ScriptableObjectManagerWindow : EditorWindow
     private void OnGUI()
     {
         
+        tabSelected = GUILayout.Toolbar(tabSelected, new string[] { "Scene", "Project", "Game Running" });
+        switch (tabSelected)
+        {
+            case 0: //All scriptable objects in the scene
+                GUILayout.Label("All the scriptable variables being used in the current scene", EditorStyles.helpBox);
+                break;
+            case 1: //All scriptable objects in the project
+                GUILayout.Label("All the scriptable variables in the project folder", EditorStyles.helpBox);
+                break;
+            case 2: //Tracks scriptable objects in the scene - so can see their values - from start to now
+                GUILayout.Label("All the scriptable variables being used in the current scene and their starting + current values", EditorStyles.helpBox);
+                break;
+        }
+
     }
 }
