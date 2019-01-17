@@ -53,3 +53,5 @@ public class sString : ScriptableVariable, IResetScriptableObject, ISerializatio
         }
     }
 }
+
+

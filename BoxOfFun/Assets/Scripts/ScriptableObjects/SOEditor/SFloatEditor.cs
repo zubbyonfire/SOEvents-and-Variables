@@ -5,7 +5,7 @@ using UnityEditor;
 
 [CustomEditor(typeof(sFloat))]
 [CanEditMultipleObjects]
-public class ScriptableVariableEditor : Editor
+public class SFloatEditor : Editor
 {
     public override void OnInspectorGUI()
     {
