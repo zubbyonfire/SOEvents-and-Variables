@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ScriptableObjectVariable;
 
 public class DamagePlayer : MonoBehaviour
 {
-    public sFloat playerHealth;
+    public SOFloat playerHealth;
 
     // Start is called before the first frame update
     void Start()
