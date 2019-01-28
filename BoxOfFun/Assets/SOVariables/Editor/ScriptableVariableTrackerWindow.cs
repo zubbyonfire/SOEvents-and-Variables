@@ -46,7 +46,7 @@ namespace ScriptableObjectVariable
             //Add a scriptable object to the list
             AddScriptableVariable();
 
-            string commandName = Event.current.commandName;
+            /*string commandName = Event.current.commandName;
 
             if (commandName == "ObjectSelectorUpdated")
             {
@@ -62,9 +62,9 @@ namespace ScriptableObjectVariable
                 {
                     scriptableVariableList.Add(selectedVar);
                 }
-            }
+            }*/
 
-            foreach (ScriptableVariable soVar in scriptableVariableList)
+            /*foreach (ScriptableVariable soVar in scriptableVariableList)
             {
                 EditorGUILayout.ObjectField(soVar, typeof(ScriptableVariable), true);
 
@@ -76,7 +76,7 @@ namespace ScriptableObjectVariable
                     scriptableVariableList = tempList;
                     Repaint();
                 }
-            }
+            }*/
         }
 
         private void DrawMainArea()
@@ -90,7 +90,17 @@ namespace ScriptableObjectVariable
             if (numberOfSelectionPanels != 0)
             {
                 GUILayout.BeginHorizontal();
-                //Draw a box and foreach selectionPanel
+
+                GUILayout.BeginVertical();
+
+                /*if (scriptableVariableList[])
+
+                ScriptableVariable tempVar = null;
+                tempVar = (ScriptableVariable)EditorGUILayout.ObjectField(tempVar, typeof(ScriptableVariable), true);
+
+                */
+                GUILayout.EndVertical();
+
                 GUILayout.EndHorizontal();
             }
 
@@ -103,8 +113,13 @@ namespace ScriptableObjectVariable
         {
             if (GUILayout.Button("Add Scriptable Variable"))
             {
-                int controlID = EditorGUIUtility.GetControlID(FocusType.Passive);
-                EditorGUIUtility.ShowObjectPicker<ScriptableVariable>(null, true, "", controlID);
+                /*int controlID = EditorGUIUtility.GetControlID(FocusType.Passive);
+                EditorGUIUtility.ShowObjectPicker<ScriptableVariable>(null, true, "", controlID);*/
+
+                ScriptableVariable tempVariable = null;
+                scriptableVariableList.Add(tempVariable);
+
+                numberOfSelectionPanels += 1;
             }
         }
 
