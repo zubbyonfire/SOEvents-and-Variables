@@ -10,6 +10,8 @@ namespace ScriptableObjectEvent
         public SOGameEvent Event;
         public UnityEvent Response;
 
+        private Logger myLogger;
+
         [TextArea]
         [Tooltip("What does this object do when the attached event is raised")]
         public string responseDescription = "[What does this object do in response to this event]";
@@ -17,18 +19,26 @@ namespace ScriptableObjectEvent
         private void OnEnable()
         {
             if (Event != null)
+            {
                 Event.RegisterListener(this);
+            }
+
+            myLogger = new Logger(new LogHandler());
         }
 
         private void OnDisable()
         {
             if (Event != null)
+            {
                 Event.UnregisterListener(this);
+            }
         }
 
         public void OnEventRaised()
         {
             Response.Invoke();
+
+            myLogger.Log(this.gameObject.name, "function triggered by " + Event.name);
         }
     }
 }
