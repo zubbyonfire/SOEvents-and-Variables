@@ -1,19 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace ScriptableObjectVariable
 {
-    [CreateAssetMenu(fileName = "sFloat", menuName = "sVariables/sVector3", order = 1)]
-    public class SOVector3 : ScriptableVariable, IResetScriptableObject, ISerializationCallbackReceiver
+    [CreateAssetMenu(fileName = "sVector3", menuName = "sVariables/sVector3", order = 1)]
+    public class SOVector3 : ScriptableVariable, ISerializationCallbackReceiver
     {
         //Float value
+        [NonSerialized]
         public Vector3 value;
 
         //Can the value be reset in game
-        public bool resettable;
+        //public bool resettable;
 
         //When the game starts, the starting value we use (so we can reset if need be)
+        [SerializeField]
         private Vector3 startingValue;
 
         /// <summary>
@@ -57,7 +60,7 @@ namespace ScriptableObjectVariable
         /// </summary>
         public void OnAfterDeserialize()
         {
-            startingValue = value;
+            value = startingValue;
         }
 
         public void OnBeforeSerialize() { }
@@ -67,10 +70,7 @@ namespace ScriptableObjectVariable
         /// </summary>
         public override void ResetValue()
         {
-            if (resettable)
-            {
-                value = startingValue;
-            }
+            value = startingValue;
         }
     }
 }

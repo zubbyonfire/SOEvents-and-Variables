@@ -1,24 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace ScriptableObjectVariable
 {
-
-    [CreateAssetMenu(fileName = "sFloat", menuName = "sVariables/sGameObject", order = 1)]
-    public class SOGameObject : ScriptableVariable, IResetScriptableObject, ISerializationCallbackReceiver
+    [CreateAssetMenu(fileName = "sGameObject", menuName = "sVariables/sGameObject", order = 1)]
+    public class SOGameObject : ScriptableVariable, ISerializationCallbackReceiver
     {
-        public float initalValue;
-
-        public float runtimeValue;
-
         //Float value
+        [NonSerialized]
         public GameObject value;
 
-        //Can the value be reset in game
-        public bool resettable;
-
         //When the game starts, the starting value we use (so we can reset if need be)
+        [SerializeField]
         private GameObject startingValue;
 
         /// <summary>
@@ -44,7 +39,7 @@ namespace ScriptableObjectVariable
         /// </summary>
         public void OnAfterDeserialize()
         {
-            startingValue = value;
+            value = startingValue;
         }
 
         public void OnBeforeSerialize() { }
@@ -54,10 +49,7 @@ namespace ScriptableObjectVariable
         /// </summary>
         public override void ResetValue()
         {
-            if (resettable)
-            {
-                value = startingValue;
-            }
+            value = startingValue;
         }
     }
 }

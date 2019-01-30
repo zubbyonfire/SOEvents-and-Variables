@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7d3a42bc056c3d48b4deb1e4ba76c4b, type: 3}
   m_Name: PlayerDamage
   m_EditorClassIdentifier: 
-  currentValue: 0
-  resettable: 0
+  resettable: 1
   startingValue: 10

@@ -9,17 +9,12 @@ namespace ScriptableObjectEvent
     {
         private List<GameEventListener> listeners = new List<GameEventListener>();
 
-        private Logger myLogger;
-
         [TextArea]
         [Tooltip("When is this event raised")]
         public string eventDescription = "[When does this event trigger]";
 
         public void Raise()
         {
-            myLogger = new Logger(new LogHandler());
-            myLogger.Log(this.name, "Event raised");
-
             for (int i = listeners.Count - 1; i >= 0; i--)
             {
                 listeners[i].OnEventRaised();

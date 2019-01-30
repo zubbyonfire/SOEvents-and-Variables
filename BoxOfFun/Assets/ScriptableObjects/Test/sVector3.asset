@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7d3a42bc056c3d48b4deb1e4ba76c4b, type: 3}
-  m_Name: PlayerSpeed
+  m_Script: {fileID: 11500000, guid: 13af0c81a5d1bb044bad454572427c8e, type: 3}
+  m_Name: sVector3
   m_EditorClassIdentifier: 
   resettable: 0
-  startingValue: 5
+  startingValue: {x: 0, y: 0, z: 0}

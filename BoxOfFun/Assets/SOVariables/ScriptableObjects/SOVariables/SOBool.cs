@@ -1,19 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+using UnityEditor;
 
 namespace ScriptableObjectVariable
 {
-
     [CreateAssetMenu(fileName = "sBool", menuName = "sVariables/sBool", order = 1)]
-    public class SOBool : ScriptableVariable, IResetScriptableObject, ISerializationCallbackReceiver
+    public class SOBool : ScriptableVariable, ISerializationCallbackReceiver
     {
-        [KeyValue] public bool value;
+        [NonSerialized]
+        public bool value;
 
         //Can the value be reset in game
-        public bool resettable;
+        //public bool resettable;
 
         //When the game starts, the starting value we use (so we can reset if need be)
+        [SerializeField]
         private bool startingValue;
 
         /// <summary>
@@ -47,7 +51,7 @@ namespace ScriptableObjectVariable
         /// </summary>
         public void OnAfterDeserialize()
         {
-            startingValue = value;
+            value = startingValue;
         }
 
         public void OnBeforeSerialize() { }
@@ -57,10 +61,7 @@ namespace ScriptableObjectVariable
         /// </summary>
         public override void ResetValue()
         {
-            if (resettable)
-            {
-                value = startingValue;
-            }
+            value = startingValue;
         }
     }
 }

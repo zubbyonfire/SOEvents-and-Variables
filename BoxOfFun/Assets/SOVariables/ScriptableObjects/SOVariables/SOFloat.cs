@@ -1,21 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+using UnityEditor;
 
 namespace ScriptableObjectVariable
 {
-
     [CreateAssetMenu(fileName = "sFloat", menuName = "sVariables/sFloat", order = 1)]
-    public class SOFloat : ScriptableVariable, IResetScriptableObject, ISerializationCallbackReceiver
+    public class SOFloat : ScriptableVariable, ISerializationCallbackReceiver
     {
         //Float value
-        [ShowOnly][KeyValue] public float currentValue;
-
-        //Can the value be reset in game
-        public bool resettable;
+        [NonSerialized]
+        public float value;
 
         //When the game starts, the starting value we use (so we can reset if need be)
-        public float startingValue = 10;
+        [SerializeField]
+        private float startingValue;
 
         /// <summary>
         /// Set sFloat value
@@ -23,7 +24,7 @@ namespace ScriptableObjectVariable
         /// <param name="_value"></param>
         public void SetValue(float _value)
         {
-            currentValue = _value;
+            value = _value;
         }
 
         /// <summary>
@@ -32,7 +33,7 @@ namespace ScriptableObjectVariable
         /// <param name="_value"></param>
         public void SetValue(SOFloat _value)
         {
-            currentValue = _value.currentValue;
+            value = _value.value;
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace ScriptableObjectVariable
         /// <param name="_value"></param>
         public void AddValue(float _value)
         {
-            currentValue += _value;
+            value += _value;
         }
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace ScriptableObjectVariable
         /// <param name="_value"></param>
         public void AddValue(SOFloat _value)
         {
-            currentValue += _value.currentValue;
+            value += _value.value;
         }
 
         /// <summary>
@@ -58,7 +59,8 @@ namespace ScriptableObjectVariable
         /// </summary>
         public void OnAfterDeserialize()
         {
-            currentValue = startingValue;
+            value = startingValue;
+
         }
 
         public void OnBeforeSerialize() { }
@@ -68,10 +70,7 @@ namespace ScriptableObjectVariable
         /// </summary>
         public override void ResetValue()
         {
-            if (resettable)
-            {
-                currentValue = startingValue;
-            }
+            value = startingValue;
         }
     }
 }
