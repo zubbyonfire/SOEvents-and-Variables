@@ -58,7 +58,7 @@ namespace ScriptableObjectVariable
         /// </summary>
         public void OnAfterDeserialize()
         {
-            startingValue = value;
+            value = startingValue;
         }
 
         public void OnBeforeSerialize() { }

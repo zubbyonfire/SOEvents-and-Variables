@@ -13,6 +13,8 @@ namespace ScriptableObjectVariable
     public class SOIntEditor : Editor
     {
 #if UNITY_EDITOR
+        private int intModifyValue = 0;
+
         public override void OnInspectorGUI()
         {
             //Draw the defualt inspector options
@@ -25,6 +27,18 @@ namespace ScriptableObjectVariable
             EditorGUILayout.LabelField("Debugging Options", EditorStyles.centeredGreyMiniLabel);
 
             EditorGUILayout.LabelField("Current value: " + script.value, EditorStyles.boldLabel);
+
+            EditorGUILayout.BeginHorizontal();
+
+            intModifyValue = EditorGUILayout.IntField("Modify current value by: ", intModifyValue);
+
+            if (GUILayout.Button("Modify"))
+            {
+
+                script.AddValue(intModifyValue);
+            }
+
+            EditorGUILayout.EndHorizontal();
 
             if (GUILayout.Button("Reset Value"))
             {
