@@ -41,9 +41,9 @@ public class LeftClick_Damage : MonoBehaviour
                 {
                     if (hit.collider.gameObject == playerCube) //If we hit the playerCube
                     {
-                        damagePlayer.Raise(); //Raise the damage player event
-
                         DamagePlayer(); //Damage the player
+
+                        damagePlayer.Raise(); //Raise the damage player event
                     }
                 }
             }

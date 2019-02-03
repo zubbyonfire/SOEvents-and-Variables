@@ -41,9 +41,9 @@ public class RightClick_Heal : MonoBehaviour
                 {
                     if (hit.collider.gameObject == playerCube) //If we hit the playerCube
                     {
-                        healPlayer.Raise(); //Raise the heal player event
-
                         HealPlayer(); //Heal the player
+
+                        healPlayer.Raise(); //Raise the heal player event
                     }
                 }
             }
