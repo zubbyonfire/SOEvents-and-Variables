@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ScriptableObjectEvent
 {
-    [CreateAssetMenu(fileName = "sGameEvent", menuName = "sGameEvents/sGameEvent", order = 1)]
+    [CreateAssetMenu(fileName = "soGameEvent", menuName = "soGameEvents/soGameEvent", order = 1)]
     public class SOGameEvent : ScriptableObject
     {
         //List of all objects/methods subscribed to this GameEvent

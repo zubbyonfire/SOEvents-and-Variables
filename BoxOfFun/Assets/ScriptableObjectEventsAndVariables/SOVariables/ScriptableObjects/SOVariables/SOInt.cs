@@ -3,47 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-using UnityEditor;
-
 namespace ScriptableObjectVariable
 {
-    [CreateAssetMenu(fileName = "sBool", menuName = "sVariables/sBool", order = 1)]
-    public class SOBool : ScriptableVariable, ISerializationCallbackReceiver
-    {
-        [NonSerialized]
-        public bool value;
 
-        //Can the value be reset in game
-        //public bool resettable;
+    [CreateAssetMenu(fileName = "soInt", menuName = "soVariables/soInt", order = 1)]
+    public class SOInt : ScriptableVariable, ISerializationCallbackReceiver
+    {
+        //Float value
+        [NonSerialized]
+        public int value;
 
         //When the game starts, the starting value we use (so we can reset if need be)
         [SerializeField]
-        private bool startingValue = false;
+        private int startingValue = 0;
 
         /// <summary>
-        /// Set sBool value
+        /// Set sInt value
         /// </summary>
         /// <param name="_value"></param>
-        public void SetValue(bool _value)
+        public void SetValue(int _value)
         {
             value = _value;
         }
 
         /// <summary>
-        /// Set value to another sBool value
+        /// Set value to another sInt value
         /// </summary>
         /// <param name="_value"></param>
-        public void SetValue(SOBool _value)
+        public void SetValue(SOInt _value)
         {
             value = _value.value;
         }
 
         /// <summary>
-        /// Swap the bool value
+        /// Add a int value to the value
         /// </summary>
-        public void Toggle()
+        /// <param name="_value"></param>
+        public void AddValue(int _value)
         {
-            value = !value;
+            value += _value;
+        }
+
+        /// <summary>
+        /// Add another sInt value to the value
+        /// </summary>
+        /// <param name="_value"></param>
+        public void AddValue(SOInt _value)
+        {
+            value += _value.value;
         }
 
         /// <summary>

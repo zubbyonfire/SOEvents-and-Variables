@@ -38,3 +38,5 @@ https://www.youtube.com/watch?v=raQ3iHhE_Kk
 
 Or for a more TLDR article: https://unity3d.com/how-to/architect-with-scriptable-objects
 
+GitHub of this project can be found at: https://github.com/zubbyonfire/SOEvents-and-Variables
+

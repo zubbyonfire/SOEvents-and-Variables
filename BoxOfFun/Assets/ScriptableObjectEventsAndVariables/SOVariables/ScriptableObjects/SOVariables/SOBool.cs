@@ -3,36 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+using UnityEditor;
+
 namespace ScriptableObjectVariable
 {
-
-    [CreateAssetMenu(fileName = "sString", menuName = "sVariables/sString", order = 1)]
-    public class SOString : ScriptableVariable, ISerializationCallbackReceiver
+    [CreateAssetMenu(fileName = "soBool", menuName = "soVariables/soBool", order = 1)]
+    public class SOBool : ScriptableVariable, ISerializationCallbackReceiver
     {
-        //Float value
         [NonSerialized]
-        public string value;
+        public bool value;
+
+        //Can the value be reset in game
+        //public bool resettable;
 
         //When the game starts, the starting value we use (so we can reset if need be)
         [SerializeField]
-        private string startingValue = null;
+        private bool startingValue = false;
 
         /// <summary>
-        /// Set sString value
+        /// Set sBool value
         /// </summary>
         /// <param name="_value"></param>
-        public void SetValue(string _value)
+        public void SetValue(bool _value)
         {
             value = _value;
         }
 
         /// <summary>
-        /// Set value to another sString value
+        /// Set value to another sBool value
         /// </summary>
         /// <param name="_value"></param>
-        public void SetValue(SOString _value)
+        public void SetValue(SOBool _value)
         {
             value = _value.value;
+        }
+
+        /// <summary>
+        /// Swap the bool value
+        /// </summary>
+        public void Toggle()
+        {
+            value = !value;
         }
 
         /// <summary>

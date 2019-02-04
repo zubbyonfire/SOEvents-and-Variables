@@ -6,51 +6,33 @@ using System;
 namespace ScriptableObjectVariable
 {
 
-    [CreateAssetMenu(fileName = "sInt", menuName = "sVariables/sInt", order = 1)]
-    public class SOInt : ScriptableVariable, ISerializationCallbackReceiver
+    [CreateAssetMenu(fileName = "soString", menuName = "soVariables/soString", order = 1)]
+    public class SOString : ScriptableVariable, ISerializationCallbackReceiver
     {
         //Float value
         [NonSerialized]
-        public int value;
+        public string value;
 
         //When the game starts, the starting value we use (so we can reset if need be)
         [SerializeField]
-        private int startingValue = 0;
+        private string startingValue = null;
 
         /// <summary>
-        /// Set sInt value
+        /// Set sString value
         /// </summary>
         /// <param name="_value"></param>
-        public void SetValue(int _value)
+        public void SetValue(string _value)
         {
             value = _value;
         }
 
         /// <summary>
-        /// Set value to another sInt value
+        /// Set value to another sString value
         /// </summary>
         /// <param name="_value"></param>
-        public void SetValue(SOInt _value)
+        public void SetValue(SOString _value)
         {
             value = _value.value;
-        }
-
-        /// <summary>
-        /// Add a int value to the value
-        /// </summary>
-        /// <param name="_value"></param>
-        public void AddValue(int _value)
-        {
-            value += _value;
-        }
-
-        /// <summary>
-        /// Add another sInt value to the value
-        /// </summary>
-        /// <param name="_value"></param>
-        public void AddValue(SOInt _value)
-        {
-            value += _value.value;
         }
 
         /// <summary>

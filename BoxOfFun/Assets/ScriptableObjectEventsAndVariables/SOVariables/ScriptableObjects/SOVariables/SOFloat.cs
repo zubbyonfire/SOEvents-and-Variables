@@ -3,55 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+using UnityEditor;
+
 namespace ScriptableObjectVariable
 {
-    [CreateAssetMenu(fileName = "sVector2", menuName = "sVariables/sVector2", order = 1)]
-
-    public class SOVector2 : ScriptableVariable, ISerializationCallbackReceiver
+    [CreateAssetMenu(fileName = "soFloat", menuName = "soVariables/soFloat", order = 1)]
+    public class SOFloat : ScriptableVariable, ISerializationCallbackReceiver
     {
         //Float value
         [NonSerialized]
-        public Vector2 value;
-
-        //Can the value be reset in game
-        //public bool resettable;
+        public float value;
 
         //When the game starts, the starting value we use (so we can reset if need be)
         [SerializeField]
-        private Vector2 startingValue = Vector2.zero;
+        private float startingValue = 0;
 
         /// <summary>
-        /// Set sVector3 value
+        /// Set sFloat value
         /// </summary>
         /// <param name="_value"></param>
-        public void SetValue(Vector2 _value)
+        public void SetValue(float _value)
         {
             value = _value;
         }
 
         /// <summary>
-        /// Set value to another sVector3 value
+        /// Set value to another sBool value
         /// </summary>
         /// <param name="_value"></param>
-        public void SetValue(SOVector2 _value)
+        public void SetValue(SOFloat _value)
         {
             value = _value.value;
         }
 
         /// <summary>
-        /// Add a Vector3 value to the value
+        /// Add a float value to the value
         /// </summary>
         /// <param name="_value"></param>
-        public void AddValue(Vector2 _value)
+        public void AddValue(float _value)
         {
             value += _value;
         }
 
         /// <summary>
-        /// Add another sVector3 value to the value
+        /// Add another sFloat value to the value
         /// </summary>
         /// <param name="_value"></param>
-        public void AddValue(SOVector2 _value)
+        public void AddValue(SOFloat _value)
         {
             value += _value.value;
         }
@@ -62,6 +60,7 @@ namespace ScriptableObjectVariable
         public void OnAfterDeserialize()
         {
             value = startingValue;
+
         }
 
         public void OnBeforeSerialize() { }

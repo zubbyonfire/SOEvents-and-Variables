@@ -5,33 +5,54 @@ using System;
 
 namespace ScriptableObjectVariable
 {
-    [CreateAssetMenu(fileName = "sGameObject", menuName = "sVariables/sGameObject", order = 1)]
-    public class SOGameObject : ScriptableVariable, ISerializationCallbackReceiver
+    [CreateAssetMenu(fileName = "soVector3", menuName = "soVariables/soVector3", order = 1)]
+    public class SOVector3 : ScriptableVariable, ISerializationCallbackReceiver
     {
         //Float value
         [NonSerialized]
-        public GameObject value;
+        public Vector3 value;
+
+        //Can the value be reset in game
+        //public bool resettable;
 
         //When the game starts, the starting value we use (so we can reset if need be)
         [SerializeField]
-        private GameObject startingValue = null;
+        private Vector3 startingValue = Vector3.zero;
 
         /// <summary>
-        /// Set sGameObject value
+        /// Set sVector3 value
         /// </summary>
         /// <param name="_value"></param>
-        public void SetValue(GameObject _value)
+        public void SetValue(Vector3 _value)
         {
             value = _value;
         }
 
         /// <summary>
-        /// Set value to another sGameObject value
+        /// Set value to another sVector3 value
         /// </summary>
         /// <param name="_value"></param>
-        public void SetValue(SOGameObject _value)
+        public void SetValue(SOVector3 _value)
         {
             value = _value.value;
+        }
+
+        /// <summary>
+        /// Add a Vector3 value to the value
+        /// </summary>
+        /// <param name="_value"></param>
+        public void AddValue(Vector3 _value)
+        {
+            value += _value;
+        }
+
+        /// <summary>
+        /// Add another sVector3 value to the value
+        /// </summary>
+        /// <param name="_value"></param>
+        public void AddValue(SOVector3 _value)
+        {
+            value += _value.value;
         }
 
         /// <summary>
