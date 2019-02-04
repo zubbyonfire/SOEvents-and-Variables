@@ -20,12 +20,16 @@ namespace ScriptableObjectEvent
         //Dictionary of all objects that are using the GameEventListener
         private Dictionary<SOGameEvent, List<GameObject>> gameEventDictionary = new Dictionary<SOGameEvent, List<GameObject>>();
 
+        //List of all eventListenrs that isn't assigned
         private List<GameObject> unassignedEventListeners = new List<GameObject>();
 
+        //All the objects with the gameEventListener
         private GameEventListener[] eventObjects;
 
+        //Values for scrollPos
         private Vector2 scrollPos;
 
+        //Toolbar variables
         private int toolbarInt = 0;
         private string[] toolbarStrings = { "Active Scene Events", "Unassigned Event Listeners" };
 
@@ -38,9 +42,8 @@ namespace ScriptableObjectEvent
 
         private void OnEnable()
         {
-            //If scene has changed in Editor or while running
+            //Register for both scene and hierarchy changes
             SceneManager.activeSceneChanged += SceneUpdated;
-
             EditorApplication.hierarchyChanged += HierarchyChanged;
 
             GetAllScriptableEventsInScene();
@@ -48,6 +51,7 @@ namespace ScriptableObjectEvent
 
         private void OnDisable()
         {
+            //UnRegister for both scene and hierarchy changes
             EditorSceneManager.activeSceneChangedInEditMode -= SceneUpdated;
             SceneManager.activeSceneChanged -= SceneUpdated;
 
@@ -58,6 +62,7 @@ namespace ScriptableObjectEvent
         {          
             toolbarInt = GUILayout.Toolbar(toolbarInt, toolbarStrings);
 
+            //Switch based on the current selected toolbar button
             switch(toolbarInt)
             {
                 case 0:
@@ -77,10 +82,12 @@ namespace ScriptableObjectEvent
             Rect r = position; //position of the window - can get the height and width from here
             float windowWidth = position.width / 4; //Width of each section
 
+            //Style for label - center position + bold
             GUIStyle centerLabelStyle = new GUIStyle();
             centerLabelStyle.alignment = TextAnchor.MiddleLeft;
             centerLabelStyle.fontStyle = FontStyle.Bold;
 
+            //Style for label - center position + word wrap
             GUIStyle midLeftAlign = new GUIStyle();
             midLeftAlign.alignment = TextAnchor.MiddleLeft;
             midLeftAlign.wordWrap = true;

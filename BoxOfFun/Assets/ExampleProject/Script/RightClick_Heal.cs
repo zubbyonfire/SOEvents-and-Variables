@@ -8,21 +8,25 @@ using ScriptableObjectVariable;
 
 public class RightClick_Heal : MonoBehaviour
 {
-    //Heal and Damage events
+    //Heal event
     [SerializeField]
-    private SOGameEvent healPlayer;
+    private SOGameEvent healPlayer = null;
 
+    //PlayerHealth and healtAmount ref
     [SerializeField]
-    private SOInt playerHealth, healAmount;
+    private SOInt playerHealth = null, healAmount = null;
 
+    //Ref to the playerCube
     [SerializeField]
     private GameObject playerCube = null;
 
+    //Main camera ref
     private Camera mainCamera = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        //Get a ref to the mainCamera
         mainCamera = Camera.main;
     }
 
@@ -50,8 +54,18 @@ public class RightClick_Heal : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Increase the playerHealth by the healAmount
+    /// </summary>
     private void HealPlayer()
     {
+        //Add healAmount to the playerHealth value
         playerHealth.value += healAmount.value;
+
+        //If the health is greater or equal to 100 set the value to 100
+        if (playerHealth.value >= 100)
+        {
+            playerHealth.value = 100;
+        }
     }
 }

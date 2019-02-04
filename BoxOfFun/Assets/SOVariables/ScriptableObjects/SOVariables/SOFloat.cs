@@ -16,7 +16,7 @@ namespace ScriptableObjectVariable
 
         //When the game starts, the starting value we use (so we can reset if need be)
         [SerializeField]
-        private float startingValue;
+        private float startingValue = 0;
 
         /// <summary>
         /// Set sFloat value

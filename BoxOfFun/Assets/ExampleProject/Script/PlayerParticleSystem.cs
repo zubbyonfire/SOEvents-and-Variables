@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//We need to add the ScriptableObject Variable & Event libraries
-using ScriptableObjectEvent;
-using ScriptableObjectVariable;
-
 [RequireComponent(typeof(ParticleSystem))]
 public class PlayerParticleSystem : MonoBehaviour
 {
     [SerializeField]
-    private Color healColour;
+    private Color healColour = new Color(0, 0, 0); //Heal colour
 
     [SerializeField]
-    private Color damageColour;
+    private Color damageColour = new Color(0,0,0); //Damage colour
 
+    //Particle system ref + components 
     private new ParticleSystem particleSystem;
     private ParticleSystem.MainModule mainMod;
     private ParticleSystem.EmissionModule emissionMod;
@@ -22,12 +19,16 @@ public class PlayerParticleSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Get the ParticleSystem component and module refs
         particleSystem = GetComponent<ParticleSystem>();
         mainMod = particleSystem.main;
         emissionMod = particleSystem.emission;
         emissionMod.enabled = false; //Turn off the emission for particle system
     }
 
+    /// <summary>
+    /// Switch the PS colour and then fire a burst
+    /// </summary>
     public void PlayerHealed()
     {
         mainMod.startColor = new Color(healColour.r, healColour.g, healColour.b);
@@ -35,6 +36,9 @@ public class PlayerParticleSystem : MonoBehaviour
         ParticleBurst();
     }
 
+    /// <summary>
+    /// Switch the PS colour and then fire a burst
+    /// </summary>
     public void PlayerDamaged()
     {
         mainMod.startColor =  new Color(damageColour.r, damageColour.g, damageColour.b);
@@ -42,6 +46,9 @@ public class PlayerParticleSystem : MonoBehaviour
         ParticleBurst();
     }
 
+    /// <summary>
+    /// Enable the emissionModule and emit some particles
+    /// </summary>
     public void ParticleBurst()
     {
         emissionMod.enabled = true;

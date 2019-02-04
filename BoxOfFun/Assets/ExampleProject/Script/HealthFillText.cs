@@ -8,17 +8,18 @@ using TMPro;
 //We need to add the ScriptableObjectVariable library
 using ScriptableObjectVariable;
 
-[RequireComponent(typeof(TextMeshPro))]
+[RequireComponent(typeof(TextMeshProUGUI))]
 public class HealthFillText : MonoBehaviour
 {
     [SerializeField]
-    private SOInt playerHealth; //How much health the player has
+    private SOInt playerHealth = null; //How much health the player has
 
-    private TextMeshPro healthText;
+    private TextMeshProUGUI healthText; //Ref textMeshProGUI
 
     private void Start()
     {
-        healthText = GetComponent<TextMeshPro>();
+        //Get the textMeshProGUI component
+        healthText = GetComponent<TextMeshProUGUI>();
 
         //Set the player health at the start of the level
         UpdatePlayerHealthText();

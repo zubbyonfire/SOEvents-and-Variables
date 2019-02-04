@@ -26,6 +26,7 @@ namespace ScriptableObjectVariable
 
             EditorGUILayout.LabelField("Current value: " + script.value.name, EditorStyles.boldLabel);
 
+            //Display button that resets the value to the starting value
             if (GUILayout.Button("Reset Value"))
             {
                 if (EditorApplication.isPlaying)

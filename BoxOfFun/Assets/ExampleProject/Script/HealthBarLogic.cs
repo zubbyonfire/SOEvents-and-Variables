@@ -10,9 +10,9 @@ using ScriptableObjectVariable;
 public class HealthBarLogic : MonoBehaviour
 {
     [SerializeField]
-    private SOInt playerHealth; //How much health the player has
+    private SOInt playerHealth = null; //How much health the player has
 
-    private Image healthBar;
+    private Image healthBar; //Ref to the health bar canvas image
 
     // Start is called before the first frame update
     void Start()

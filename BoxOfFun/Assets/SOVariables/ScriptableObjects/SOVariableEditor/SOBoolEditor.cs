@@ -26,6 +26,7 @@ namespace ScriptableObjectVariable
 
             EditorGUILayout.LabelField("Current value: " + script.value, EditorStyles.boldLabel);
 
+            //Display button that toggles the bool value
             if (GUILayout.Button("Toggle Value"))
             {
                 if (EditorApplication.isPlaying)
@@ -34,6 +35,7 @@ namespace ScriptableObjectVariable
                 }
             }
 
+            //Display button that resets the value to the starting value
             if (GUILayout.Button("Reset Value"))
             {
                 if (EditorApplication.isPlaying)

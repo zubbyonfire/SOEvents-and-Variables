@@ -30,6 +30,7 @@ namespace ScriptableObjectVariable
 
             EditorGUILayout.BeginHorizontal();
 
+            //Display a int input field and button to add the inputted value to the current value
             intModifyValue = EditorGUILayout.IntField("Modify current value by: ", intModifyValue);
 
             if (GUILayout.Button("Modify"))
@@ -40,6 +41,7 @@ namespace ScriptableObjectVariable
 
             EditorGUILayout.EndHorizontal();
 
+            //Display button that resets the value to the starting value
             if (GUILayout.Button("Reset Value"))
             {
                 if (EditorApplication.isPlaying)

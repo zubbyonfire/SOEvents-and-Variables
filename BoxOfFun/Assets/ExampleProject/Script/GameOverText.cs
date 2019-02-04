@@ -3,25 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-//We need to add the ScriptableObject Variable & Event libraries
-using ScriptableObjectVariable;
-
-[RequireComponent(typeof(TextMeshPro))]
+[RequireComponent(typeof(TextMeshProUGUI))]
 public class GameOverText : MonoBehaviour
 {
-    private TextMeshPro gameOverText;
-
-    [SerializeField]
-
+    private TextMeshProUGUI gameOverText; //Ref to the textMeshProUGUI component
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        gameOverText = GetComponent<TextMeshPro>();
+        //Get the component and disable it
+        gameOverText = GetComponent<TextMeshProUGUI>();
         gameOverText.enabled = false;
     }
 
-    void GameOverEnabled()
+    /// <summary>
+    /// Enable the text when the game is over
+    /// </summary>
+    public void GameOverEnabled()
     {
         gameOverText.enabled = true;
     }

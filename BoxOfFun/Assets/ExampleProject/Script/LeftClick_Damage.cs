@@ -8,21 +8,29 @@ using ScriptableObjectVariable;
 
 public class LeftClick_Damage : MonoBehaviour
 {
-    //Heal and Damage events
+    //Damage event
     [SerializeField]
-    private SOGameEvent damagePlayer;
+    private SOGameEvent damagePlayer = null;
 
+    //Game Over event
     [SerializeField]
-    private SOInt playerHealth, damageAmount;
+    private SOGameEvent gameOver = null;
 
+    //PlayerHealth and healtAmount ref
     [SerializeField]
-    private GameObject playerCube;
+    private SOInt playerHealth = null, damageAmount = null;
 
+    //Ref to the playerCube
+    [SerializeField]
+    private GameObject playerCube = null;
+
+    //Main camera ref
     private Camera mainCamera = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        //Get a ref to the mainCamera
         mainCamera = Camera.main;
     }
 
@@ -50,8 +58,24 @@ public class LeftClick_Damage : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Reduce the playerHealth by the damageAmount
+    /// </summary>
     private void DamagePlayer()
     {
+        //Redue the playerHealth by the damageAmount
         playerHealth.value -= damageAmount.value;
+
+        //If health value is less than 0 - set it to 0
+        if (playerHealth.value < 0)
+        {
+            playerHealth.value = 0;
+        }
+
+        //If player health equals 0 - raise the game over event
+        if (playerHealth.value == 0)
+        {
+            gameOver.Raise();
+        }
     }
 }

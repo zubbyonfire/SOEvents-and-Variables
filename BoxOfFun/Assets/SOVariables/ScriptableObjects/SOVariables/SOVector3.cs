@@ -17,7 +17,7 @@ namespace ScriptableObjectVariable
 
         //When the game starts, the starting value we use (so we can reset if need be)
         [SerializeField]
-        private Vector3 startingValue;
+        private Vector3 startingValue = Vector3.zero;
 
         /// <summary>
         /// Set sVector3 value
