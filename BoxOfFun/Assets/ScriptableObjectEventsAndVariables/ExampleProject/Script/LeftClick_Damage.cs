@@ -6,76 +6,79 @@ using UnityEngine;
 using ScriptableObjectEvent;
 using ScriptableObjectVariable;
 
-public class LeftClick_Damage : MonoBehaviour
+namespace ScriptableVariableAndEventExample
 {
-    //Damage event
-    [SerializeField]
-    private SOGameEvent damagePlayer = null;
-
-    //Game Over event
-    [SerializeField]
-    private SOGameEvent gameOver = null;
-
-    //PlayerHealth and healtAmount ref
-    [SerializeField]
-    private SOInt playerHealth = null, damageAmount = null;
-
-    //Ref to the playerCube
-    [SerializeField]
-    private GameObject playerCube = null;
-
-    //Main camera ref
-    private Camera mainCamera = null;
-
-    // Start is called before the first frame update
-    void Start()
+    public class LeftClick_Damage : MonoBehaviour
     {
-        //Get a ref to the mainCamera
-        mainCamera = Camera.main;
-    }
+        //Damage event
+        [SerializeField]
+        private SOGameEvent damagePlayer = null;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
+        //Game Over event
+        [SerializeField]
+        private SOGameEvent gameOver = null;
+
+        //PlayerHealth and healtAmount ref
+        [SerializeField]
+        private SOInt playerHealth = null, damageAmount = null;
+
+        //Ref to the playerCube
+        [SerializeField]
+        private GameObject playerCube = null;
+
+        //Main camera ref
+        private Camera mainCamera = null;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            //Get a ref to the mainCamera
+            mainCamera = Camera.main;
+        }
 
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
+        // Update is called once per frame
+        void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                if (playerCube != null) //If the player cube has been assigned
-                {
-                    if (hit.collider.gameObject == playerCube) //If we hit the playerCube
-                    {
-                        DamagePlayer(); //Damage the player
+                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-                        damagePlayer.Raise(); //Raise the damage player event
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (playerCube != null) //If the player cube has been assigned
+                    {
+                        if (hit.collider.gameObject == playerCube) //If we hit the playerCube
+                        {
+                            DamagePlayer(); //Damage the player
+
+                            damagePlayer.Raise(); //Raise the damage player event
+                        }
                     }
                 }
             }
         }
-    }
 
-    /// <summary>
-    /// Reduce the playerHealth by the damageAmount
-    /// </summary>
-    private void DamagePlayer()
-    {
-        //Redue the playerHealth by the damageAmount
-        playerHealth.value -= damageAmount.value;
-
-        //If health value is less than 0 - set it to 0
-        if (playerHealth.value < 0)
+        /// <summary>
+        /// Reduce the playerHealth by the damageAmount
+        /// </summary>
+        private void DamagePlayer()
         {
-            playerHealth.value = 0;
-        }
+            //Redue the playerHealth by the damageAmount
+            playerHealth.value -= damageAmount.value;
 
-        //If player health equals 0 - raise the game over event
-        if (playerHealth.value == 0)
-        {
-            gameOver.Raise();
+            //If health value is less than 0 - set it to 0
+            if (playerHealth.value < 0)
+            {
+                playerHealth.value = 0;
+            }
+
+            //If player health equals 0 - raise the game over event
+            if (playerHealth.value == 0)
+            {
+                gameOver.Raise();
+            }
         }
     }
 }
